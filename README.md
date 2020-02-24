@@ -9,8 +9,14 @@ For this project we're going to use
 - H2 Database
 - MySQL Database
 
+PHASE 1 - JSF Simple Hello World in 5 Steps
+
 ## Table of Contents
 - [Creating the Project](#1---creating-the-project)
+- [Configure Web Project](#2---configure-web-project)
+- [Configure JSF Dependencies](#3---configure-jsf-dependencies)
+- [Create our first Controller](#4---create-our-first-controller)
+- [Create our first view or web page](#5---create-our-first-view-or-web-page)
 
 
 
@@ -25,7 +31,7 @@ For this project we're going to use
 
 Now, he have an empty Maven project. Maven will be resposible for managing the dependencies and libraries that we're going to use in our project.
 
-## 2. Configure Web Project
+## 2 - Configure Web Project
 
 As a web project we need a file called, web.xml. Right click on the project and select `Java EE Tools -> Generate Deployment Descriptor Stub`. You should see a new file in `main/webap/WEB-INF/web.xml`. You can also use the shortcut `Ctrl+Shift+R` to search for a resource and go directly to it.
 
@@ -57,7 +63,7 @@ In order to say to our project to process jsf pages we need to modify our `web.x
 </web-app>
 ```
 
-## 3. Configure JSF Dependencies
+## 3 - Configure JSF Dependencies
 
 Now we are going to tell Maven that:
 - We are going to use JDK 8 EE libraries and classes.
@@ -130,7 +136,7 @@ Now we are going to tell Maven that:
 
 After that, right click your project and select `Maven -> Update Project` (or `Alt+F5`).
 
-## 3. Let's create our first Controller
+## 4 - Create our first Controller
 
 - On `src/main/java` folder let's right click and select `New->Package` let's create a package called `controller`.
 - Right click the new package and select `New -> Class`. Let's name it `TaskController`. Our class will look like this:
@@ -165,7 +171,7 @@ public class TaskController implements Serializable {
 }
 ```
 
-## 4. Let's create our first view or web page
+## 5 - Create our first view or web page
 
 - In folder `src/main/webapp` right click and select `New->XHTML Page`. Let's call it index.xhtml.
 - That's our first JSP page and is like a html page but with JSF tags:
@@ -192,7 +198,7 @@ public class TaskController implements Serializable {
 </html>
 ```
 
-## 4. Let's test it
+## Test it
 - To run our web application we need a web container. We are going to use Tomcat version 9.x.
 - Download Tomcat from [Tomcat Download](https://tomcat.apache.org/download-90.cgi) and extract to a folder of your choice.
 - In Eclipse you have a tab in the bottom of the IDE called Servers. Right click the link `create a new server...` -> select Tomcat v9.0 Server -> select your folder from the previous step and Finish.
