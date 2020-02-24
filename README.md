@@ -10,11 +10,11 @@ For this project we're going to use
 - MySQL Database
 
 ## Table of Contents
-- [1.Creating the Project](#project)
+- [1. Creating the Project](#Creating the Project)
 
 
 
-## Project
+## 1.Creating the Project
 
 - In eclipse, go: New -> Project -> (you cant use the filter to search for Maven -> Maven Project
 - Check Create a simple project (skip archetype selection)
