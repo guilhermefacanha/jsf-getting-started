@@ -1,19 +1,75 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 <h:head>
-    <title>Hello World JSF 2.3</title>
+	<title>Hello World JSF 2.3</title>
+	<style>
+	.ui-state-error {
+    border: 1px dotted #c50038 !important;
+    color: #f03369;
+	}
+	</style>
 </h:head>
 <h:body>
+	<f:metadata>
+		<f:viewAction action="#{taskController.generateTempList()}"/>
+	</f:metadata>
 
-    <h:form>
-        <h:outputLabel value="This is a static message."/>
-        <br/>
-        <h:outputText value="This is a controller message: #{taskController.hello}"/>
-    </h:form>
+	<h:form>
+		<p:messages closable="true" showDetail="true" showSummary="true"/>
+		<p:panel>
+
+			<p:panel>
+				<h:outputLabel value="This is a static message." />
+				<br />
+				<h:outputText
+					value="This is a controller message: #{taskController.hello}" />
+			</p:panel>
+
+			<p:panel>
+				<p:panelGrid columns="2" style="border:none;">
+					<h:outputText value="Name:" />
+					<p:inputText value="#{taskController.taskEntity.name}" required="true" requiredMessage="Required Field - Name"/>
+					<h:outputText value="Description:" />
+					<p:inputText value="#{taskController.taskEntity.description}"/>
+					<h:outputText value="Dua Date:" />
+					<p:calendar value="#{taskController.taskEntity.dueDate}" pattern="MM/dd/yyyy HH:mm:ss" showTodayButton="true" disabledWeekends="true" showHour="true" showOn="button" 
+					required="true" requiredMessage="Required Field - Due Date"/>
+					<h:outputText value="Assigned To:" />
+					<p:inputText value="#{taskController.taskEntity.assignedTo}" required="true" requiredMessage="Required Field - Assigned To"/>
+				</p:panelGrid>
+				<p:commandButton actionListener="#{taskController.save()}" value="Save" update="@form"></p:commandButton>
+			</p:panel>
+
+			<p:dataTable value="#{taskController.list}" var="task"
+				paginator="true" rows="10">
+				<p:column headerText="Id" filterBy="#{task.id}"
+					filterMatchMode="contains">
+					<h:outputText value="#{task.id}" />
+				</p:column>
+				<p:column headerText="Name" filterBy="#{task.name}"
+					filterMatchMode="contains">
+					<h:outputText value="#{task.name}" />
+				</p:column>
+				<p:column headerText="Description" filterBy="#{task.description}"
+					filterMatchMode="contains">
+					<h:outputText value="#{task.description}" />
+				</p:column>
+				<p:column headerText="Due Date">
+					<h:outputText value="#{task.dueDate}">
+						<f:convertDateTime pattern="MMM dd yyyy, HH:mm" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Assigned To" filterBy="#{task.assignedTo}"
+					filterMatchMode="contains">
+					<h:outputText value="#{task.assignedTo}" />
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+	</h:form>
 
 </h:body>
 </html>

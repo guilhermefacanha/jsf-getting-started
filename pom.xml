@@ -7,6 +7,14 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
+	<repositories>
+		<repository>
+			<id>primefaces</id>
+			<name>Primefaces Repo</name>
+			<url>https://repository.primefaces.org/</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
 
 		<!-- JSF 2.3 -->
@@ -22,6 +30,29 @@
 			<artifactId>weld-servlet-shaded</artifactId>
 			<version>3.0.0.Final</version>
 		</dependency>
+
+		<!-- Primefaces -->
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>7.0</version>
+		</dependency>
+
+		<!-- Primefaces Single Theme -->
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>glass-x</artifactId>
+			<version>1.0.10</version>
+		</dependency>
+
+		<!-- Primefaces All Themes -->
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>all-themes</artifactId>
+			<version>1.0.10</version>
+		</dependency>
+
+
 
 	</dependencies>
 
