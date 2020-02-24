@@ -9,7 +9,6 @@ import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
@@ -21,14 +20,18 @@ public class TaskController implements Serializable {
 
 	private static final long serialVersionUID = 2702358477103653868L;
 
+	//object to create a new task entity
 	private Task taskEntity = new Task();
+	
+	//object to retreive a list of tasks from database
 	private List<Task> list = new ArrayList<>();
 
+	//first method to test controller communication with view
 	public String getHello() {
-		generateTempList();
 		return "Hello from my First Controller Class";
 	}
 
+	//method to generate a temporary list to simulate a retreive from database
 	public void generateTempList() {
 		for (int i = 0; i < 20; i++) {
 			Task t = new Task();
@@ -42,6 +45,7 @@ public class TaskController implements Serializable {
 		}
 	}
 	
+	//method to add a new task to our list
 	public void save() {
 		this.list.add(0,taskEntity);
 		this.taskEntity = new Task();
@@ -49,7 +53,6 @@ public class TaskController implements Serializable {
 	}
 
 	// Gets Sets
-
 	public List<Task> getList() {
 		return list;
 	}
