@@ -201,9 +201,225 @@ public class TaskController implements Serializable {
 ## Test it
 - To run our web application we need a web container. We are going to use Tomcat version 9.x.
 - Download Tomcat from [Tomcat Download](https://tomcat.apache.org/download-90.cgi) and extract to a folder of your choice.
-- In Eclipse you have a tab in the bottom of the IDE called Servers. Right click the link `create a new server...` -> select Tomcat v9.0 Server -> select your folder from the previous step and Finish.
+- In Eclipse you have a tab in the bottom of the IDE called Servers. Click the link `create a new server...` -> select Tomcat v9.0 Server -> select your folder from the previous step and Finish.
 - Right click on the server -> Add Remove.. -> Select the jsf project -> Add -> Finish.
 - Right click on the server -> Debug
 - Open localhost:8080/jsf
 
+## Create a Simple Task Crud
 
+### Model
+
+- Let's create a Model class called Task under `src/main/java/entity`. Our classe will represent the data about a task that would be stored in a database and retrieved by users:
+
+```
+package entity;
+
+import java.util.Date;
+
+public class Task {
+
+	private long id;
+	private String name;
+	private String description;
+	private Date dueDate = new Date();
+	private String assignedTo;
+
+	// GETS SETS
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Date getDueDate() {
+		return dueDate;
+	}
+
+	public void setDueDate(Date dueDate) {
+		this.dueDate = dueDate;
+	}
+
+	public String getAssignedTo() {
+		return assignedTo;
+	}
+
+	public void setAssignedTo(String assignedTo) {
+		this.assignedTo = assignedTo;
+	}
+
+}
+```
+
+### Update Controller
+
+- Let's update our controller to manage tasks from retreiving (list) and creating new(save). Take a look at the code and the comments about the methods.
+
+```
+package controller;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+
+import entity.Task;
+
+@Named
+@ViewScoped
+public class TaskController implements Serializable {
+
+	private static final long serialVersionUID = 2702358477103653868L;
+
+	//object to create a new task entity
+	private Task taskEntity = new Task();
+	
+	//object to retreive a list of tasks from database
+	private List<Task> list = new ArrayList<>();
+
+	//first method to test controller communication with view
+	public String getHello() {
+		return "Hello from my First Controller Class";
+	}
+
+	//method to generate a temporary list to simulate a retreive from database
+	public void generateTempList() {
+		for (int i = 0; i < 20; i++) {
+			Task t = new Task();
+			t.setId(i);
+			t.setName("Task " + i);
+			t.setDescription("Description of task " + i);
+			t.setDueDate(Date.from(LocalDateTime.now().plusMinutes(i * 10).atZone(ZoneId.systemDefault()).toInstant()));
+			t.setAssignedTo("User " + i);
+
+			list.add(t);
+		}
+	}
+	
+	//method to add a new task to our list
+	public void save() {
+		this.list.add(0,taskEntity);
+		this.taskEntity = new Task();
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "Task added!"));
+	}
+
+	// Gets Sets
+	public List<Task> getList() {
+		return list;
+	}
+
+	public void setList(List<Task> list) {
+		this.list = list;
+	}
+
+	public Task getTaskEntity() {
+		return taskEntity;
+	}
+
+	public void setTaskEntity(Task taskEntity) {
+		this.taskEntity = taskEntity;
+	}
+
+}
+```
+
+### Update View
+- Let's update a view to include a simple task form and a task list table
+- Added a `f:metadata` with `f:viewAction` to call for a method on controller when the page loads
+- Added a `h:panelGrid` with 2 columns to organize our form
+- Added a `h:datatable` to retreive a list of tasks from our controller and show in the view
+
+```
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<title>Hello World JSF 2.3</title>
+</h:head>
+<h:body>
+	<!-- Example on how to call for a method from controller when the page is loaded -->
+	<f:metadata>
+		<f:viewAction action="#{taskController.generateTempList()}" />
+	</f:metadata>
+	<h:messages showDetail="true" showSummary="true" />
+	<h:form id="form">
+		<fieldset>
+			<legend>Tasks</legend>
+			<h:panelGroup>
+				<h:outputLabel value="This is a static message." />
+				<br />
+				<h:outputText value="This is a controller message: #{taskController.hello}" />
+			</h:panelGroup>
+			<h:panelGrid columns="2">
+				<h:outputText value="Name:" />
+				<h:inputText value="#{taskController.taskEntity.name}" required="true" requiredMessage="Required Field - Name"/>
+				<h:outputText value="Description:" />
+				<h:inputText value="#{taskController.taskEntity.description}" />
+				<h:outputText value="Dua Date:" />
+				<h:inputText value="#{taskController.taskEntity.dueDate}" required="true" requiredMessage="Required Field - Due Date" placeholder="MM/dd/yyyy HH:mm">
+					<f:convertDateTime pattern="MM/dd/yyyy HH:mm" />
+				</h:inputText>
+				<h:outputText value="Assigned To:" />
+				<h:inputText value="#{taskController.taskEntity.assignedTo}" required="true" requiredMessage="Required Field - Assigned To" />
+				<h:commandButton value="Save" actionListener="#{taskController.save()}" immediate="false"/>
+			</h:panelGrid>
+
+
+			<!-- JSF data table component -->
+			<h:panelGroup>
+				<h:dataTable value="#{taskController.list}" var="task">
+						<f:facet name="header">Task List</f:facet>
+					<h:column>
+						<f:facet name="header">Id</f:facet>
+						<h:outputText value="#{task.id}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Name</f:facet>
+						<h:outputText value="#{task.name}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Description</f:facet>
+						<h:outputText value="#{task.description}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Due Date</f:facet>
+						<h:outputText value="#{task.dueDate}">
+							<f:convertDateTime pattern="MMM dd yyyy, HH:mm" />
+						</h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">Assigned To</f:facet>
+						<h:outputText value="#{task.assignedTo}" />
+					</h:column>
+				</h:dataTable>
+			</h:panelGroup>
+		</fieldset>
+	</h:form>
+
+</h:body>
+</html>
+```
