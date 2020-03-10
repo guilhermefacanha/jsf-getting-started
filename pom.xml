@@ -7,6 +7,10 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
+	<properties>
+		<hibernate.version>5.4.12.Final</hibernate.version>
+	</properties>
+
 	<repositories>
 		<repository>
 			<id>primefaces</id>
@@ -16,6 +20,14 @@
 	</repositories>
 
 	<dependencies>
+
+		<!-- Servlet Provided -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.0</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<!-- JSF 2.3 -->
 		<dependency>
@@ -52,6 +64,20 @@
 			<version>1.0.10</version>
 		</dependency>
 
+		<!-- Hibernate / JPA -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>5.4.12.Final</version>
+		</dependency>
+
+
+		<!-- H2 Memory Database -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.4.200</version>
+		</dependency>
 
 
 	</dependencies>

@@ -2,8 +2,13 @@ package entity;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Task {
 
+	@Id
 	private long id;
 	private String name;
 	private String description;

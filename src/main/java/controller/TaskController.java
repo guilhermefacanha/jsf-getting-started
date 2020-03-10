@@ -1,17 +1,16 @@
 package controller;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 
+import dao.TaskDao;
 import entity.Task;
 
 @Named
@@ -19,6 +18,10 @@ import entity.Task;
 public class TaskController implements Serializable {
 
 	private static final long serialVersionUID = 2702358477103653868L;
+	
+	//object to communicate with database
+	@Inject
+	private TaskDao dao;
 
 	//object to create a new task entity
 	private Task taskEntity = new Task();
@@ -31,25 +34,16 @@ public class TaskController implements Serializable {
 		return "Hello from my First Controller Class";
 	}
 
-	//method to generate a temporary list to simulate a retreive from database
-	public void generateTempList() {
-		for (int i = 0; i < 20; i++) {
-			Task t = new Task();
-			t.setId(i);
-			t.setName("Task " + i);
-			t.setDescription("Description of task " + i);
-			t.setDueDate(Date.from(LocalDateTime.now().plusMinutes(i * 10).atZone(ZoneId.systemDefault()).toInstant()));
-			t.setAssignedTo("User " + i);
-
-			list.add(t);
-		}
-	}
-	
 	//method to add a new task to our list
 	public void save() {
-		this.list.add(0,taskEntity);
+		this.dao.save(taskEntity);
+		loadList();
 		this.taskEntity = new Task();
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "Task added!"));
+	}
+	
+	public void loadList() {
+		this.list = dao.getAll();
 	}
 
 	// Gets Sets
