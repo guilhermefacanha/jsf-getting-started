@@ -12,7 +12,7 @@ For this project we're going to use
 ## Table of Contents
 - [Phase 1 - JSF Simple Hello World in 5 Steps](#phase-1---jsf-simple-hello-world-in-5-steps)
 - [Phase 2 - JSF With Primefaces](#phase-2---jsf-with-primefaces)
-- [Phase 3 - Hibernate/JPA](#phase-3---hibernate/jpa)
+- [Phase 3 - Hibernate/JPA](#phase-3---hibernatejpa)
 
 # PHASE 3 - Hibernate/JPA
 
