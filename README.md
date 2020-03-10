@@ -241,7 +241,7 @@ public class AppConfigServlet extends HttpServlet{
 ```
 
 
-## 4 - Update Controller
+## 5 - Update Controller
 
 Finally, we have to update our Controller and our view to communicate with our data acess object.
 
