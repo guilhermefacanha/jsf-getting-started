@@ -71,7 +71,6 @@
 			<version>5.4.12.Final</version>
 		</dependency>
 
-
 		<!-- H2 Memory Database -->
 		<dependency>
 			<groupId>com.h2database</groupId>
@@ -79,6 +78,19 @@
 			<version>1.4.200</version>
 		</dependency>
 
+		<!-- MySQL JDBC -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.19</version>
+		</dependency>
+
+		<!-- PostgreSQL JDBC -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.2.10</version>
+		</dependency>
 
 	</dependencies>
 

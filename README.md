@@ -69,19 +69,22 @@ package entity;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Task {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String name;
 	private String description;
 	private Date dueDate;
 	private String assignedTo;
 
-	//GETS SETS
+	// GETS SETS
 	... continue the same from before
 	
 
@@ -317,7 +320,7 @@ public class TaskController implements Serializable {
 
 ```
 
-- In our view we just changed the page load method:
+- In our view we just changed the page load method for the database load list:
 
 ```
 

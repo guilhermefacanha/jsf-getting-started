@@ -26,7 +26,7 @@ public class AppConfigServlet extends HttpServlet{
 		System.out.println("==== Database Context Initialization ====");
 		
 		createSampleTask();
-
+		
 		System.out.println("==== Database Context Initialized ====");
 	}
 
