@@ -1,0 +1,77 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/template.xhtml">
+	<ui:define name="content">
+		<!-- Example on how to call for a method from controller when the page is loaded -->
+		<f:metadata>
+			<f:viewAction action="#{taskController.initController()}" />
+			<f:viewAction action="#{taskCategoryController.initController()}" />
+		</f:metadata>
+
+		<h:form>
+			<p:panel>
+
+				<p:fieldset legend="Task Form">
+					<p:panelGrid columns="2" style="border:none; max-width:500px;"
+						layout="grid">
+						<h:outputText value="Type:" />
+						<p:selectOneMenu filter="true" filterMatchMode="contains" value="#{taskController.ent.type}" converter="entityConverter">
+							<f:selectItem itemLabel="Select Type" itemValue="" />
+							<f:selectItems value="#{taskCategoryController.list}" var="cat"
+								itemLabel="#{cat.name}" itemValue="#{cat}" />
+						</p:selectOneMenu>
+						<h:outputText value="Name:" />
+						<p:inputText value="#{taskController.ent.name}" required="true"
+							requiredMessage="Required Field - Name" />
+						<h:outputText value="Description:" />
+						<p:inputText value="#{taskController.ent.description}" />
+						<h:outputText value="Dua Date:" />
+						<p:calendar value="#{taskController.ent.dueDate}"
+							pattern="MM/dd/yyyy HH:mm:ss" showTodayButton="true"
+							disabledWeekends="true" showHour="true" showOn="button"
+							required="true" requiredMessage="Required Field - Due Date" />
+						<h:outputText value="Assigned To:" />
+						<p:inputText value="#{taskController.ent.assignedTo}"
+							required="true" requiredMessage="Required Field - Assigned To" />
+					</p:panelGrid>
+					<p:commandButton actionListener="#{taskController.save()}"
+						value="Save" update="#{p:component('tbTask')}" styleClass="btn-md"></p:commandButton>
+				</p:fieldset>
+
+				<!-- Primefaces data table component -->
+				<p:dataTable value="#{taskController.list}" var="task"
+					paginator="true" rows="10" id="tbTask">
+					<p:column headerText="Id" filterBy="#{task.id}"
+						filterMatchMode="contains">
+						<h:outputText value="#{task.id}" />
+					</p:column>
+					<p:column headerText="Type" filterBy="#{task.type.name}"
+						filterMatchMode="contains">
+						<h:outputText value="#{task.type.name}" />
+					</p:column>
+					<p:column headerText="Name" filterBy="#{task.name}"
+						filterMatchMode="contains">
+						<h:outputText value="#{task.name}" />
+					</p:column>
+					<p:column headerText="Description" filterBy="#{task.description}"
+						filterMatchMode="contains">
+						<h:outputText value="#{task.description}" />
+					</p:column>
+					<p:column headerText="Due Date">
+						<h:outputText value="#{task.dueDate}">
+							<f:convertDateTime pattern="MMM dd yyyy, HH:mm" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Assigned To" filterBy="#{task.assignedTo}"
+						filterMatchMode="contains">
+						<h:outputText value="#{task.assignedTo}" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

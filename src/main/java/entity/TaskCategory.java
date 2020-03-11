@@ -1,11 +1,9 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
@@ -14,23 +12,19 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
-public class Task extends BaseEntity implements Serializable {
+public class TaskCategory extends BaseEntity implements Serializable{
 
-	private static final long serialVersionUID = -6288938187130177461L;
+	private static final long serialVersionUID = 6025921852270472162L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue
 	private long id;
-	private TaskCategory type;
+	
 	private String name;
-	private String description;
-	private Date dueDate;
-	private String assignedTo;
-
 }

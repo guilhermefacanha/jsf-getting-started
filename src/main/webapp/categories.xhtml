@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/template.xhtml">
+	<ui:define name="content">
+		<!-- Example on how to call for a method from controller when the page is loaded -->
+		<f:metadata>
+			<f:viewAction action="#{taskCategoryController.initController()}" />
+		</f:metadata>
+
+		<h:form>
+			<p:panel>
+
+				<p:fieldset legend="Task Form">
+					<p:panelGrid columns="2" style="border:none; max-width:500px;"
+						layout="grid">
+						<h:outputText value="Name:" />
+						<p:inputText value="#{taskCategoryController.ent.name}"
+							required="true" requiredMessage="Required Field - Name" />
+					</p:panelGrid>
+					<p:commandButton actionListener="#{taskCategoryController.save()}" icon="pi pi-save"
+						value="Save" update="#{p:component('tbTask')}" styleClass="btn-md"></p:commandButton>
+				</p:fieldset>
+
+				<!-- Primefaces data table component -->
+				<p:dataTable value="#{taskCategoryController.list}" var="task"
+					paginator="true" rows="10" id="tbTask">
+					<p:column width="5%" headerText="Id" filterBy="#{task.id}"
+						filterMatchMode="contains">
+						<h:outputText value="#{task.id}" />
+					</p:column>
+					<p:column headerText="Name" filterBy="#{task.name}"
+						filterMatchMode="contains">
+						<h:outputText value="#{task.name}" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
