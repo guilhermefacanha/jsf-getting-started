@@ -1,0 +1,29 @@
+/**
+* CUSTOM CSS CLASSES
+**/
+.ui-state-error {
+	border: 1px dotted #c50038 !important;
+	color: #f03369;
+}
+
+.mright10 {
+	margin-right: 10px;
+}
+
+.vcenter {
+	vertical-align: sub;
+}
+
+.ui-fieldset,
+.ui-panel{
+	margin-bottom: 10px;
+}
+
+.btn-md{
+	max-width: 150px;
+}
+
+.ui-fieldset-legend{
+	background: none;
+	border: none;
+}

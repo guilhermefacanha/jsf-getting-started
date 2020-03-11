@@ -29,12 +29,13 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- JSF 2.3 -->
+		<!-- JSF -->
 		<dependency>
 			<groupId>org.glassfish</groupId>
 			<artifactId>jakarta.faces</artifactId>
 			<version>2.3.14</version>
 		</dependency>
+
 
 		<!-- CDI Dependency Injection -->
 		<dependency>
@@ -90,6 +91,14 @@
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>42.2.10</version>
+		</dependency>
+
+		<!-- Lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.12</version>
+			<scope>provided</scope>
 		</dependency>
 
 	</dependencies>

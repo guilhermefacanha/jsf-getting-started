@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -14,7 +14,7 @@ import dao.TaskDao;
 import entity.Task;
 
 @Named
-@RequestScoped
+@ViewScoped
 public class TaskController implements Serializable {
 
 	private static final long serialVersionUID = 2702358477103653868L;
@@ -32,7 +32,7 @@ public class TaskController implements Serializable {
 	//first method to test controller communication with view
 	public String getHello() {
 		return "Hello from my First Controller Class";
-	}
+	}	
 
 	//method to add a new task to our list
 	public void save() {
